@@ -1,0 +1,95 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  min-height: 100vh;
+  max-height: 100vh;
+}
+
+.sd__navbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  padding-right: 2rem;
+}
+
+.sd__body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 1rem;
+  margin: 1rem;
+}
+.sd__body__right{
+  justify-self: flex-end;
+}
+.sd__body__center{
+  display: flex;
+ 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+
+  
+}
+
+
+.dart{
+  width: 50px;
+  height: 100px;
+  align-self: flex-end;
+  -webkit-transition: all 1s ease;  
+  -moz-transition: all 1s ease;  
+  -o-transition: all 1s ease;  
+  -ms-transition: all 1s ease;  
+  transition: all 1s ease;
+}
+
+.dart-active{
+  transform: translateX(-200px);
+  transform: translateY(-200px);
+  -webkit-transition: all 1s ease;  
+  -moz-transition: all 1s ease;  
+  -o-transition: all 1s ease;  
+  -ms-transition: all 1s ease;  
+  transition: all 1s ease;
+  
+}
+
+.sd__body__center__board{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+
+.sd__body__left{
+  justify-self: flex-start;
+}
+.circle {
+  width: 40vh;
+  height: 40vh;
+  border-radius: 50%;
+  border: 3px solid black;
+  
+}
+.sector1 {
+  width: 0;
+  height: 0;
+  border-width: 100px;
+  border-style: solid;
+  border-color: transparent transparent #f00 transparent;
+  border-radius: 50%;
+}
+.sd__footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
