@@ -3,14 +3,15 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { SystemProgram, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import React, { FC, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-
 //icons
 import me from "./me.svg"
 import ds from "./ds.svg"
 import tw from "./tw.svg"
 import Modal from '../Modal/Modal';
 import gameItem from './win1.png'
-const web3 = require('@solana/web3.js');
+
+const solanaWeb3 = require('@solana/web3.js');
+
 const bs58 = require('bs58');
 
 
@@ -31,13 +32,13 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
             if(!b || b<0.01){ 
                 throw new Error("Bid")     
             }
-           
+           const bb= b*LAMPORTS_PER_SOL
                                                    
             const transaction = new Transaction().add(
                 SystemProgram.transfer({
                     fromPubkey: publicKey,
-                    toPubkey: process.env.REACT_APP_public,
-                    lamports: b*LAMPORTS_PER_SOL,
+                    toPubkey: new solanaWeb3.PublicKey(process.env.REACT_APP_public),
+                    lamports: bb,
                 })
             );
            
@@ -74,7 +75,7 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
             const response = await fetch('/game', requestOptions);
             
             const data = await response.json().then((data)=>{
-                console.log("then", data)
+                
                 setAmmount(data.ammount)
                 setGame(data.game)
                 return data
@@ -143,6 +144,8 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
             </div>
             
             <input value={bidN}
+                    type="number" step="0.01"
+                    
                     placeholder = {"1 Sol"}
                     onChange={
                         (el)=>{setBidN(el.target.value)}
