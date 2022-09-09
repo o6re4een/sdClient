@@ -9,7 +9,7 @@ import ds from "./ds.svg"
 import tw from "./tw.svg"
 import Modal from '../Modal/Modal';
 import gameItem from './win1.png'
-import {API_URL} from "../config";
+import {API_URL} from "./config";
 const solanaWeb3 = require('@solana/web3.js');
 
 
