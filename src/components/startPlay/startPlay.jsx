@@ -52,7 +52,7 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
            
             
             
-          
+           
             const signature = await sendTransaction(transaction, connection, { minContextSlot}) ;
 
             await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature});           
@@ -79,12 +79,7 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
                 setGame(data.game)
                 return data
             })
-          
-     
-    
-            
-            
-    
+
           
             setActiveDart(current => !current); 
 
@@ -123,6 +118,7 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
                     draggable: true,
                     progress: undefined,
                 });
+                console.log(err)
             }
         }
 
