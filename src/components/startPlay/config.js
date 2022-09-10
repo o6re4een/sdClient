@@ -1,1 +1,1 @@
-export const API_URL = `http://api.solanadars.fun/api/`
+export const API_URL = `http://api.solanadarts.fun/api/`
