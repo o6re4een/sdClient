@@ -21,7 +21,11 @@ module.exports = function (config, env) {
             ],
         },
         plugins: [
+            
             ...config.plugins,
+            new webpack.ProvidePlugin({
+                Buffer: ['buffer', 'Buffer'],
+            }),
             new ProvidePlugin({
                 process: 'process/browser',
             }),
