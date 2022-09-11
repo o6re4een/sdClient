@@ -14,7 +14,7 @@ import React, { FC, ReactNode, useMemo, useState} from 'react';
 import PlayButton from "./components/startPlay/startPlay.jsx"
 
 import dart from "./svg/dart.png"
-import target from "./svg/Mask group.svg"
+import target from "./svg/target.png"
 import leftArrrow from "./svg/arrowr.svg"
 import rightArrrow from "./svg/arrowl.svg"
 
