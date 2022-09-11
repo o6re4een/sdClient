@@ -28,7 +28,7 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
         try{
             if (!publicKey) throw new WalletNotConnectedError();
             let b = parseFloat(bidN)
-            if(!b || b<0.01){ 
+            if(!b || b<0.05){ 
                 throw new Error("Bid")     
             }
            const bb= b*LAMPORTS_PER_SOL
