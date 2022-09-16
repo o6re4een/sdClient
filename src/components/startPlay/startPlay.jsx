@@ -21,11 +21,20 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
     const [modalActive, setModalActive] = useState(false)
     const [ammount, setAmmount] = useState(0)
     const [bidN, setBidN] = useState(0.1)
-   
+    const [isLoading, setLoading] = useState(false)
+    
+    const loader =()=>(
+        <div className='loader__container'>
+            <div className='loader'></div>
+            <p className='loader__text'>Wait for confirm transaction</p>
+        </div>
+    )
+
 
 
     const onClick = useCallback(async () => {
         try{
+            setLoading(true)
             if (!publicKey) throw new WalletNotConnectedError();
             let b = parseFloat(bidN)
             if(!b || b<0.05){ 
@@ -46,16 +55,14 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
                 context: { slot: minContextSlot },
                 value: { blockhash, lastValidBlockHeight }
             } = await connection.getLatestBlockhashAndContext();
-            transaction.feePayer = publicKey
-            transaction.recentBlockhash = blockhash
-            transaction.lastValidBlockHeight = lastValidBlockHeight
+         
            
             
             
            
             const signature = await sendTransaction(transaction, connection, { minContextSlot}) ;
 
-            await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature});           
+            await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature}, "finalized");           
            
           
             const requestOptions = {
@@ -68,18 +75,28 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
                 "bid": b, 
                 "sign": signature,
                 "pub": publicKey
-                })
+                
+            })
             };
             
             const response = await fetch(`${API_URL}/game`, requestOptions);
             
-            const data = await response.json().then((data)=>{
+            await response.json().then((data)=>{
+                console.log(data);
+                if(data.ammount === undefined){
+                    setAmmount(0)
+                }else{
+                    setAmmount(data.ammount)
+                }
                 
-                setAmmount(data.ammount)
-                setGame(data.game)
-                return data
+                if(data.game === undefined){
+                    setGame(0)
+                }else{
+                    setGame(data.game)
+                }
+                
             })
-
+            setLoading(false)
           
             setActiveDart(current => !current); 
 
@@ -88,6 +105,7 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
             
             
         } catch(err){
+            
             if(err.name=="WalletSendTransactionError"){
                 toast.error('Transaction rejected', {
                     position: "top-right",
@@ -120,6 +138,7 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
                 });
                 console.log(err)
             }
+            setLoading(false)
         }
 
     }, [publicKey, sendTransaction, connection, bidN]);
@@ -160,7 +179,11 @@ const StartPlay = ({setActiveDart, setGame, ...props}) => {
                         </div>
                 </div>
                 
-            </Modal>       
+            </Modal>   
+            <Modal active={isLoading} setActive={setLoading}>
+                {loader()} 
+            </Modal> 
+              
         </div>
           
     );
